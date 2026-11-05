@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FastAPI Docs Assistant</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 3rem auto; padding: 0 1rem; color: #1a1a1a; }
+  h1 { font-size: 1.4rem; margin-bottom: .25rem; }
+  p.sub { color: #666; margin-top: 0; }
+  form { display: flex; gap: .5rem; margin: 1.5rem 0; }
+  input { flex: 1; padding: .6rem .8rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 6px; }
+  button { padding: .6rem 1rem; font-size: 1rem; border: 0; border-radius: 6px; background: #05998b; color: #fff; cursor: pointer; }
+  button:disabled { opacity: .6; }
+  #answer { white-space: pre-wrap; line-height: 1.5; }
+  .refused { color: #8a5a00; }
+  ul { padding-left: 1.2rem; } li { margin: .3rem 0; }
+  small { color: #888; }
+</style>
+</head>
+<body>
+<h1>FastAPI Docs Assistant</h1>
+<p class="sub">Answers only from the official FastAPI docs, with sources. Says so when the docs don't cover it.</p>
+<form id="f">
+  <input id="q" placeholder="e.g. How do I add CORS middleware?" maxlength="500" required>
+  <button id="b">Ask</button>
+</form>
+<div id="answer"></div>
+<ul id="cites"></ul>
+<small id="meta"></small>
+<script>
+const f = document.getElementById('f'), q = document.getElementById('q'), b = document.getElementById('b');
+const ans = document.getElementById('answer'), cites = document.getElementById('cites'), meta = document.getElementById('meta');
+f.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  b.disabled = true; ans.textContent = 'Thinking…'; ans.className = ''; cites.innerHTML = ''; meta.textContent = '';
+  try {
+    const r = await fetch('/ask', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                                     body: JSON.stringify({ question: q.value }) });
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.detail || r.statusText);
+    ans.textContent = d.answer;
+    if (d.refused) ans.className = 'refused';
+    for (const c of d.citations) {
+      const li = document.createElement('li'), a = document.createElement('a');
+      a.href = c.url; a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = `[${c.id}] ${c.title} › ${c.section}`;
+      li.appendChild(a); cites.appendChild(li);
+    }
+    meta.textContent = `${d.latency_ms} ms`;
+  } catch (err) { ans.textContent = 'Error: ' + err.message; }
+  b.disabled = false;
+});
+</script>
+</body>
+</html>

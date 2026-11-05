@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: pip install -r requirements-dev.txt
+      - name: Lint
+        run: ruff check .
+      - name: Unit tests (offline provider, no API key needed)
+        run: pytest -q
+      - name: Offline eval smoke test on the real corpus
+        run: |
+          bash scripts/fetch_corpus.sh data/corpus
+          python -m app.ingest
+          python -m eval.run_eval
+
+  docker:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build image
+        run: docker build -t docs-rag:${{ github.sha }} .
+      - name: Smoke test container (offline provider)
+        run: |
+          docker run -d --name rag -p 8000:8000 -e PROVIDER=offline docs-rag:${{ github.sha }}
+          for i in $(seq 1 60); do curl -sf localhost:8000/health && break; sleep 2; done
+          curl -sf -X POST localhost:8000/ask -H 'content-type: application/json' \
+            -d '{"question":"How do I serve static files?"}' | tee /dev/stderr | grep -q '"refused":false'
+      - if: failure()
+        run: docker logs rag || true

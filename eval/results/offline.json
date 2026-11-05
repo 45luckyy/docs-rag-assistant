@@ -1,0 +1,267 @@
+{
+  "date": "2026-11-04",
+  "provider": "offline",
+  "llm_model": "extractive-offline",
+  "min_score": 0.35,
+  "top_k": 4,
+  "metrics": {
+    "n_questions": 30,
+    "n_in_scope": 20,
+    "n_out_of_scope": 10,
+    "retrieval_hit_at_k_pct": 85.0,
+    "in_scope_answered_pct": 95.0,
+    "citation_accuracy_pct": 68.4,
+    "correct_refusal_pct": 100.0,
+    "false_refusal_pct": 5.0
+  },
+  "per_question": [
+    {
+      "id": "q01",
+      "refused": false,
+      "top_score": 0.466,
+      "cited": [
+        "tutorial/request-files.md"
+      ],
+      "answer": "Note: To receive uploaded files, first install [`python-multipart`](https://github.com/Kludex/python-multipart). [1]"
+    },
+    {
+      "id": "q02",
+      "refused": false,
+      "top_score": 0.619,
+      "cited": [
+        "tutorial/static-files.md"
+      ],
+      "answer": "# Static Files You can serve static files automatically from a directory using `StaticFiles`. [3]"
+    },
+    {
+      "id": "q03",
+      "refused": false,
+      "top_score": 0.507,
+      "cited": [
+        "tutorial/handling-errors.md"
+      ],
+      "answer": "### The resulting response If the client requests `http://example.com/items/foo` (an `item_id` `\"foo\"`), that client will receive an HTTP status code of 200, and a JSON response of: ```JSON { \"item\": \"The Foo Wrestlers\" } ``` But if the client requests `http://example.com/items/bar` (a non-existent `item_id` `\"bar\"`), that client will receive an HTTP status code of 404 (the \"not found\" error), and a JSON response of: ```JSON { \"detail\": \"Item not found\" } ``` Tip: When raising an `HTTPException`, you can pass any value that can be converted to JSON as the parameter `detail`, not only `str`. [4]"
+    },
+    {
+      "id": "q04",
+      "refused": false,
+      "top_score": 0.451,
+      "cited": [
+        "tutorial/response-model.md"
+      ],
+      "answer": "## Response Model encoding parameters Your response model could have default values, like: * `description: Union[str, None] = None` (or `str | None = None` in Python 3.10) has a default of `None`. [1]"
+    },
+    {
+      "id": "q05",
+      "refused": false,
+      "top_score": 0.437,
+      "cited": [
+        "tutorial/testing.md"
+      ],
+      "answer": "## Using `TestClient` Note: To use `TestClient`, first install [`httpx`](https://www.python-httpx.org). [1]"
+    },
+    {
+      "id": "q06",
+      "refused": false,
+      "top_score": 0.423,
+      "cited": [
+        "advanced/events.md"
+      ],
+      "answer": "# Lifespan Events You can define logic (code) that should be executed before the application **starts up**. [1]"
+    },
+    {
+      "id": "q07",
+      "refused": false,
+      "top_score": 0.508,
+      "cited": [
+        "tutorial/path-params.md"
+      ],
+      "answer": "### Declare a *path parameter* Then create a *path parameter* with a type annotation using the enum class you created (`ModelName`): [1]"
+    },
+    {
+      "id": "q08",
+      "refused": false,
+      "top_score": 0.569,
+      "cited": [
+        "tutorial/query-params-str-validations.md"
+      ],
+      "answer": "But now, having `Query(max_length=50)` inside of `Annotated`, we are telling FastAPI that we want it to have **additional validation** for this value, we want it to have maximum 50 characters. [1]"
+    },
+    {
+      "id": "q09",
+      "refused": false,
+      "top_score": 0.532,
+      "cited": [
+        "tutorial/path-operation-configuration.md"
+      ],
+      "answer": "## Response Status Code You can define the (HTTP) `status_code` to be used in the response of your *path operation*. [1]"
+    },
+    {
+      "id": "q10",
+      "refused": false,
+      "top_score": 0.7,
+      "cited": [
+        "advanced/settings.md"
+      ],
+      "answer": "# Settings and Environment Variables In many cases your application could need some external settings or configurations, for example secret keys, database credentials, credentials for email services, etc. [1]"
+    },
+    {
+      "id": "q11",
+      "refused": false,
+      "top_score": 0.524,
+      "cited": [
+        "advanced/settings.md"
+      ],
+      "answer": "### Creating the `Settings` only once with `lru_cache` Reading a file from disk is normally a costly (slow) operation, so you probably want to do it only once and then reuse the same settings object, instead of reading it for each request. [1]"
+    },
+    {
+      "id": "q12",
+      "refused": false,
+      "top_score": 0.564,
+      "cited": [
+        "tutorial/dependencies/dependencies-in-path-operation-decorators.md"
+      ],
+      "answer": "## Dependencies for a group of *path operations* Later, when reading about how to structure bigger applications ([Bigger Applications - Multiple Files](../../tutorial/bigger-applications.md)), possibly with multiple files, you will learn how to declare a single `dependencies` parameter for a group of *path operations*. [1]"
+    },
+    {
+      "id": "q13",
+      "refused": false,
+      "top_score": 0.434,
+      "cited": [
+        "advanced/sub-applications.md"
+      ],
+      "answer": "### Mount the sub-application In your top-level application, `app`, mount the sub-application, `subapi`. [1]"
+    },
+    {
+      "id": "q14",
+      "refused": false,
+      "top_score": 0.503,
+      "cited": [
+        "benchmarks.md"
+      ],
+      "answer": "# Benchmarks Independent TechEmpower benchmarks show **FastAPI** applications running under Uvicorn as [one of the fastest Python frameworks available](https://www.techempower.com/benchmarks/#section=test&runid=7464e520-0dc2-473d-bd34-dbdfd7e85911&hw=ph&test=query&l=zijzen-7), only below Starlette and Uvicorn themselves (used internally by FastAPI). [1]"
+    },
+    {
+      "id": "q15",
+      "refused": false,
+      "top_score": 0.553,
+      "cited": [
+        "tutorial/metadata.md"
+      ],
+      "answer": "For example, to set it to be served at `/api/v1/openapi.json`: If you want to disable the OpenAPI schema completely you can set `openapi_url=None`, that will also disable the documentation user interfaces that use it. [1]"
+    },
+    {
+      "id": "q16",
+      "refused": false,
+      "top_score": 0.426,
+      "cited": [
+        "tutorial/security/oauth2-jwt.md"
+      ],
+      "answer": "Create a random secret key that will be used to sign the JWT tokens. [1]"
+    },
+    {
+      "id": "q17",
+      "refused": false,
+      "top_score": 0.663,
+      "cited": [
+        "tutorial/encoder.md"
+      ],
+      "answer": "# JSON Compatible Encoder There are some cases where you might need to convert a data type (like a Pydantic model) to something compatible with JSON (like a `dict`, `list`, etc). [1]"
+    },
+    {
+      "id": "q18",
+      "refused": false,
+      "top_score": 0.471,
+      "cited": [
+        "deployment/concepts.md"
+      ],
+      "answer": "So, to be able to have **multiple processes** at the same time, there has to be a **single process listening on a port** that then transmits the communication to each worker process in some way. [2]"
+    },
+    {
+      "id": "q19",
+      "refused": false,
+      "top_score": 0.361,
+      "cited": [
+        "tutorial/body-updates.md"
+      ],
+      "answer": "# Body - Updates ## Update replacing with `PUT` To update an item you can use the [HTTP `PUT`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PUT) operation. [3]"
+    },
+    {
+      "id": "q20",
+      "refused": true,
+      "top_score": 0.25,
+      "cited": [],
+      "answer": "I don't know based on the provided documents."
+    },
+    {
+      "id": "o01",
+      "refused": true,
+      "top_score": 0.0,
+      "cited": [],
+      "answer": "I don't know based on the provided documents."
+    },
+    {
+      "id": "o02",
+      "refused": true,
+      "top_score": 0.356,
+      "cited": [],
+      "answer": "I don't know based on the provided documents."
+    },
+    {
+      "id": "o03",
+      "refused": true,
+      "top_score": 0.334,
+      "cited": [],
+      "answer": "I don't know based on the provided documents."
+    },
+    {
+      "id": "o04",
+      "refused": true,
+      "top_score": 0.298,
+      "cited": [],
+      "answer": "I don't know based on the provided documents."
+    },
+    {
+      "id": "o05",
+      "refused": true,
+      "top_score": 0.258,
+      "cited": [],
+      "answer": "I don't know based on the provided documents."
+    },
+    {
+      "id": "o06",
+      "refused": true,
+      "top_score": 0.313,
+      "cited": [],
+      "answer": "I don't know based on the provided documents."
+    },
+    {
+      "id": "o07",
+      "refused": true,
+      "top_score": 0.196,
+      "cited": [],
+      "answer": "I don't know based on the provided documents."
+    },
+    {
+      "id": "o08",
+      "refused": true,
+      "top_score": 0.198,
+      "cited": [],
+      "answer": "I don't know based on the provided documents."
+    },
+    {
+      "id": "o09",
+      "refused": true,
+      "top_score": 0.226,
+      "cited": [],
+      "answer": "I don't know based on the provided documents."
+    },
+    {
+      "id": "o10",
+      "refused": true,
+      "top_score": 0.265,
+      "cited": [],
+      "answer": "I don't know based on the provided documents."
+    }
+  ]
+}

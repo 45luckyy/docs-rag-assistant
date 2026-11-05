@@ -1,0 +1,4 @@
+-r requirements.txt
+# ragas 0.4.3 imports modules removed in langchain-community 0.4, so pin below it.
+ragas==0.4.3
+langchain-community<0.4
