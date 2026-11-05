@@ -27,6 +27,11 @@ class Settings(BaseSettings):
     min_score: float = 0.35
     max_search_hops: int = 2
 
+    # Abuse limits for the public /ask endpoint. The daily cap stays below the
+    # free-tier LLM quota (Flash-Lite: ~500 requests/day) so it can't be drained.
+    rate_limit_per_minute: int = 10
+    daily_ask_limit: int = 400
+
     embed_batch_size: int = 50
     # Free tier counts each chunk as one request (limit 100/min); stay under it.
     embed_per_minute: int = 90

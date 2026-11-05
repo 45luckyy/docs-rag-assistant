@@ -126,6 +126,18 @@ container.
 GitHub Actions runs `ruff`, the unit tests (offline provider, no secrets), an offline eval on the
 real corpus, then builds the Docker image and smoke-tests the container.
 
+## Security
+
+- `/ask` is limited to 10 requests per minute per IP and 400 per day in total (`RATE_LIMIT_PER_MINUTE`,
+  `DAILY_ASK_LIMIT`), so the free-tier LLM quota can't be drained by one client or many.
+- The calculator tool parses arithmetic with `ast` (no `eval`) and size-checks every intermediate result,
+  so expressions like `((9**100)**100)**100` are rejected instead of exhausting CPU or memory.
+- The API key lives only in `.env`, which is excluded from git and the Docker image. The container runs
+  as a non-root user, and CI's GitHub token is read-only.
+- Known, accepted: `ragas` (PYSEC-2026-3046) and `diskcache` (PYSEC-2026-2447) have advisories with no fix
+  yet. They are local-only evaluation dependencies, not in the Docker image, and the affected code paths
+  (multimodal file loading, a writable shared cache directory) are not used.
+
 ## Project layout
 
 ```

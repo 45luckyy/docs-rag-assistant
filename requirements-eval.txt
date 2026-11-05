@@ -2,3 +2,5 @@
 # ragas 0.4.3 imports modules removed in langchain-community 0.4, so pin below it.
 ragas==0.4.3
 langchain-community<0.4
+# >=1.1.14 fixes PYSEC-2026-76 (SSRF via DNS rebinding) in a ragas dependency.
+langchain-openai>=1.1.14
